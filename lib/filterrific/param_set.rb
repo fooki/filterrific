@@ -7,7 +7,6 @@ module Filterrific
 
   # FilterParamSet is a container to store FilterParams
   class ParamSet
-
     attr_accessor :model_class
     attr_accessor :select_options
 
@@ -17,9 +16,11 @@ module Filterrific
     # @param filterrific_params [Hash, optional] the filter params, falls back
     #   to model_class' default_settings.
     # @return [Filterrific::ParamSet]
-    def initialize(a_model_class, filterrific_params = {})
+    def initialize(a_model_class, extra_parameters, filterrific_params = {})
       self.model_class = a_model_class
       @select_options = {}
+      @extras = extra_parameters || {}
+      @extras.stringify_keys!
 
       # Use either passed in filterrific_params or resource class' default_settings.
       # Don't merge the hashes. This causes trouble if an option is set to nil
@@ -69,7 +70,12 @@ module Filterrific
       to_hash.to_json
     end
 
-  protected
+    def for_filter(name)
+      return [send(name)] unless @extras.has_key? name
+      [send(name), @extras[name]]
+    end
+
+    protected
 
     # Conditions params: Evaluates Procs and type casts integer values.
     # @param fp [Hash] the filterrific params hash

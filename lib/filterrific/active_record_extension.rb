@@ -66,7 +66,7 @@ module Filterrific
       filterrific_available_filters.each do |filter_name|
         filter_param = filterrific_param_set.send(filter_name)
         next if filter_param.blank? # skip blank filter_params
-        ar_rel = ar_rel.send(filter_name, filter_param)
+        ar_rel = ar_rel.send(filter_name, *filterrific_param_set.for_filter(filter_name))
       end
 
       ar_rel

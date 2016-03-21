@@ -79,7 +79,7 @@ module Filterrific
   describe ParamSet do
 
     let(:filterrific_param_set){
-      Filterrific::ParamSet.new(ModelClass, TestData.filterrific_params)
+      Filterrific::ParamSet.new(ModelClass, {}, TestData.filterrific_params)
     }
 
     describe "initialization" do

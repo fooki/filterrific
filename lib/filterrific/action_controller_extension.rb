@@ -7,7 +7,7 @@ module Filterrific
 
     include HasResetFilterrificUrlMixin
 
-  protected
+    protected
 
     # @param model_class [Class]
     # @param filterrific_params [Hash] typically the Rails request params under
@@ -32,10 +32,10 @@ module Filterrific
       f_params = (filterrific_params || {}).stringify_keys
       opts = opts.stringify_keys
       pers_id = if false == opts['persistence_id']
-        nil
-      else
-        opts['persistence_id'] || compute_default_persistence_id
-      end
+                  nil
+                else
+                  opts['persistence_id'] || compute_default_persistence_id
+                end
 
       if (f_params.delete('reset_filterrific'))
         # Reset query and session_persisted params
@@ -44,8 +44,7 @@ module Filterrific
       end
 
       f_params = compute_filterrific_params(model_class, f_params, opts, pers_id)
-
-      filterrific = Filterrific::ParamSet.new(model_class, f_params)
+      filterrific = Filterrific::ParamSet.new(model_class, opts['extra_parameters'], f_params)
       filterrific.select_options = opts['select_options']
       session[pers_id] = filterrific.to_hash  if pers_id
       filterrific
@@ -72,6 +71,5 @@ module Filterrific
       r.slice!(*opts['available_filters'].map(&:to_s))  if opts['available_filters']
       r
     end
-
   end
 end
