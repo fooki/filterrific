@@ -71,8 +71,8 @@ module Filterrific
     end
 
     def for_filter(name)
-      return [send(name)] unless @extras.has_key? name
-      [send(name), @extras[name]]
+      return [send(name.to_s)] unless @extras.has_key? name.to_s
+      [send(name.to_s), *@extras[name.to_s]]
     end
 
     protected

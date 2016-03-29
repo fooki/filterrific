@@ -33,6 +33,7 @@ module Filterrific
           :initialize_filterrific,
           TestModelClass,
           { 'filter1' => 1, 'filter2' => 2 },
+          extra_parameters: { 'filter1' => 'blurgh' }
         ).must_be_instance_of(ParamSet)
       end
 
@@ -112,5 +113,3 @@ module Filterrific
 
   end
 end
-
-

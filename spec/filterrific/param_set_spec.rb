@@ -79,7 +79,9 @@ module Filterrific
   describe ParamSet do
 
     let(:filterrific_param_set){
-      Filterrific::ParamSet.new(ModelClass, {}, TestData.filterrific_params)
+      Filterrific::ParamSet.new(ModelClass,
+                                {},
+                                TestData.filterrific_params)
     }
 
     describe "initialization" do
@@ -138,6 +140,34 @@ module Filterrific
         )
       end
 
+    end
+
+    describe "for_filter" do
+      let(:filterrific_param_set) do
+        Filterrific::ParamSet.new(ModelClass,
+                                  { filter_string: 'not-funny' },
+                                  TestData.filterrific_params)
+      end
+
+      it 'includes extra params' do
+        filterrific_param_set.for_filter('filter_string').must_equal(
+          ['forty-two', 'not-funny']
+        )
+      end
+
+      describe 'when extra params is an array' do
+        let(:filterrific_param_set) do
+          Filterrific::ParamSet.new(ModelClass,
+                                    { filter_string: %w(funny boring) },
+                                    TestData.filterrific_params)
+        end
+
+        it 'includes extra params' do
+          filterrific_param_set.for_filter('filter_string').must_equal(
+            ['forty-two', 'funny', 'boring']
+          )
+        end
+      end
     end
 
     describe "#select_options" do
