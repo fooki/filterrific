@@ -8,12 +8,8 @@ Gem::Specification.new do |gem|
   gem.version = Filterrific::VERSION
   gem.platform = Gem::Platform::RUBY
 
-  gem.authors = ['Jo Hund']
-  gem.email = 'jhund@clearcove.ca'
-  gem.homepage = 'http://filterrific.clearcove.ca'
-  gem.licenses = ['MIT']
-  gem.summary = 'A Rails engine plugin for filtering ActiveRecord lists.'
-  gem.description = %(Filterrific is a Rails Engine plugin that makes it easy to filter, search, and sort your ActiveRecord lists.)
+  gem.authors = ['Karl Johansson']
+  gem.summary = "A fork of Jo Hund's impressive Filterrific gem."
   gem.required_ruby_version = '>= 1.9.3'
 
   gem.files = Dir[
